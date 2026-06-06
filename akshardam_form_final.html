@@ -1,0 +1,247 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{font-family:'Poppins',sans-serif;max-width:700px;background:var(--color-background-primary);}
+.hdr{background:linear-gradient(135deg,#1a1a2e 0%,#2d1b00 60%,#3d2200 100%);padding:0;border-radius:16px 16px 0 0;overflow:hidden;position:relative;}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(255,140,0,0.18) 0%,transparent 65%);}
+.hdr-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.6rem;}
+.logo-area{display:flex;align-items:center;gap:14px;}
+.logo-img{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(255,140,0,0.5));}
+.logo-text .brand{font-size:20px;font-weight:700;color:#fff;letter-spacing:0.5px;line-height:1.1;}
+.logo-text .brand span{color:#FF8C00;}
+.logo-text .sub{font-size:10px;letter-spacing:2.5px;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-top:2px;}
+.hdr-right{text-align:right;}
+.hdr-right .coupon-label{font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:1.5px;text-transform:uppercase;}
+.coupon-badge{font-size:22px;font-weight:700;color:#FF8C00;line-height:1.1;}
+.accent-bar{height:3px;background:linear-gradient(90deg,#FF8C00,#FFB347,#FF6B00);}
+.body{padding:1.4rem 1.6rem;}
+.section-label{font-size:10px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:#FF8C00;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px;}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--color-border-tertiary);}
+.exec-card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.4rem;transition:border-color 0.2s;}
+.exec-card.set{border-color:#FF8C00;background:rgba(255,140,0,0.06);}
+.exec-row{display:flex;gap:10px;align-items:flex-end;}
+.exec-display{display:none;align-items:center;gap:10px;padding:6px 0;}
+.exec-display .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#FF8C00,#FF6B00);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.exec-display .info .name{font-size:14px;font-weight:600;color:var(--color-text-primary);}
+.exec-display .info .role{font-size:11px;color:var(--color-text-secondary);}
+.change-link{font-size:11px;color:#FF8C00;cursor:pointer;text-decoration:underline;white-space:nowrap;}
+.fg{margin-bottom:1rem;}
+label.lbl{display:block;font-size:11px;font-weight:600;letter-spacing:0.5px;color:var(--color-text-secondary);margin-bottom:5px;text-transform:uppercase;}
+input[type=text],input[type=tel],input[type=date]{width:100%;height:40px;padding:0 12px;font-size:13.5px;font-family:'Poppins',sans-serif;border:0.5px solid var(--color-border-secondary);border-radius:8px;background:var(--color-background-primary);color:var(--color-text-primary);outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
+input:focus{border-color:#FF8C00;box-shadow:0 0 0 3px rgba(255,140,0,0.12);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip input{display:none;}
+.chip label{display:block;padding:6px 14px;font-size:12px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:20px;cursor:pointer;color:var(--color-text-secondary);transition:all 0.15s;user-select:none;}
+.chip input:checked + label{background:#FF8C00;color:#fff;border-color:#FF8C00;font-weight:600;}
+.submit-btn{width:100%;height:46px;border:none;border-radius:10px;background:linear-gradient(135deg,#FF6B00,#FF8C00,#FFB347);color:#fff;font-size:15px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:0.3px;transition:opacity 0.15s,transform 0.1s;box-shadow:0 4px 16px rgba(255,140,0,0.35);margin-top:1.2rem;}
+.submit-btn:hover{opacity:0.93;}
+.submit-btn:active{transform:scale(0.99);}
+.submit-btn:disabled{background:#aaa;box-shadow:none;cursor:not-allowed;}
+.footer-strip{background:linear-gradient(135deg,#1a1a2e,#2d1b00);border-radius:0 0 16px 16px;padding:0.75rem 1.6rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-strip .counter-info{color:rgba(255,255,255,0.6);font-size:12px;}
+.footer-strip .counter-val{color:#FF8C00;font-size:20px;font-weight:700;}
+.sheet-status{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,0.45);}
+.dot{width:7px;height:7px;border-radius:50%;background:#5cb85c;box-shadow:0 0 6px #5cb85c;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;font-weight:500;border-left:3px solid #FF8C00;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:999;white-space:nowrap;}
+.toast.show{opacity:1;}
+.toast.err{border-left-color:#e74c3c;}
+</style>
+
+<div class="wrap">
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="logo-area">
+        <img class="logo-img" id="logoImg" src="" alt="Akshardam Logo" />
+        <div class="logo-text">
+          <div class="brand">AKSHARD<span>HAM</span></div>
+          <div class="sub">Associates</div>
+        </div>
+      </div>
+      <div class="hdr-right">
+        <div class="coupon-label">Coupon No.</div>
+        <div class="coupon-badge" id="couponBadge">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="body">
+
+    <div class="section-label">Executive</div>
+    <div class="exec-card" id="execCard">
+      <div class="exec-row" id="execInputRow">
+        <div class="fg" style="margin:0">
+          <label class="lbl">Apna naam likhein</label>
+          <input type="text" id="execInput" placeholder="Executive naam..." />
+        </div>
+        <button onclick="setExec()" style="height:40px;padding:0 18px;background:linear-gradient(135deg,#FF6B00,#FF8C00);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Poppins',sans-serif;">Set karein</button>
+      </div>
+      <div class="exec-display" id="execDisplay">
+        <div class="avatar" id="execAvatar">?</div>
+        <div class="info">
+          <div class="name" id="execName">—</div>
+          <div class="role">Executive</div>
+        </div>
+        <span class="change-link" onclick="changeExec()">naam badlein</span>
+      </div>
+    </div>
+
+    <div class="section-label">Coupon Details</div>
+    <div class="grid2">
+      <div class="fg">
+        <label class="lbl">Coupon Number *</label>
+        <input type="text" id="couponNo" placeholder="jaise 301..." oninput="document.getElementById('couponBadge').textContent=this.value||'—'" />
+      </div>
+      <div class="fg">
+        <label class="lbl">Date</label>
+        <input type="date" id="entryDate" />
+      </div>
+    </div>
+
+    <div class="section-label">Personal Information</div>
+    <div class="fg">
+      <label class="lbl">Naam (Name) *</label>
+      <input type="text" id="naam" placeholder="Poora naam..." />
+    </div>
+    <div class="fg">
+      <label class="lbl">Pita ka Naam (Father's Name)</label>
+      <input type="text" id="pita" placeholder="Pita ka naam..." />
+    </div>
+    <div class="grid2">
+      <div class="fg">
+        <label class="lbl">Sheher (City)</label>
+        <input type="text" id="sheher" placeholder="Sheher..." />
+      </div>
+      <div class="fg">
+        <label class="lbl">Mobile Number</label>
+        <input type="tel" id="mobile" placeholder="10 digit..." maxlength="10" />
+      </div>
+    </div>
+
+    <div class="section-label">Business Type / Vyavsay</div>
+    <div class="fg">
+      <div class="chips">
+        <div class="chip"><input type="checkbox" id="b1" value="Kirana"><label for="b1">Kirana</label></div>
+        <div class="chip"><input type="checkbox" id="b2" value="Kapda"><label for="b2">Kapda</label></div>
+        <div class="chip"><input type="checkbox" id="b3" value="Jewellery"><label for="b3">Jewellery</label></div>
+        <div class="chip"><input type="checkbox" id="b4" value="Hardware"><label for="b4">Hardware</label></div>
+        <div class="chip"><input type="checkbox" id="b5" value="Medical"><label for="b5">Medical</label></div>
+        <div class="chip"><input type="checkbox" id="b6" value="Electronics"><label for="b6">Electronics</label></div>
+        <div class="chip"><input type="checkbox" id="b7" value="Other"><label for="b7">Anya (Other)</label></div>
+      </div>
+    </div>
+
+    <div class="section-label">Area / Referral</div>
+    <div class="fg">
+      <label class="lbl">Area / Parichay / Referral</label>
+      <input type="text" id="area" placeholder="Area ya referral ka naam..." />
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitEntry()">
+      <i class="ti ti-send" aria-hidden="true"></i>
+      Entry Darj Karein
+    </button>
+  </div>
+
+  <div class="footer-strip">
+    <div>
+      <div class="counter-info">Aaj ki entries</div>
+      <div class="counter-val" id="entryCount">0</div>
+    </div>
+    <div class="sheet-status">
+      <div class="dot"></div>
+      <span>Google Sheets — connected ✓</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxwWgNNcIo4hdksciPDYApSMgW4ALMD30aHlM4bZOmQ_l6bwch7CBWnVHSycnIN6XNj6Q/exec';
+
+(function(){
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 20,40 80,40" fill="#FF8C00" opacity="0.9"/><rect x="30" y="40" width="10" height="20" fill="#FF6B00"/><rect x="45" y="35" width="10" height="25" fill="#FFB347"/><rect x="60" y="40" width="10" height="20" fill="#FF6B00"/><rect x="42" y="50" width="6" height="6" fill="#fff" opacity="0.8"/></svg>`;
+  document.getElementById('logoImg').src=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+  document.getElementById('entryDate').value=new Date().toISOString().split('T')[0];
+  try{
+    const s=JSON.parse(sessionStorage.getItem('ak_cfg')||'{}');
+    if(s.exec){window._exec=s.exec;showExecSet(s.exec);}
+  }catch(e){}
+})();
+
+function showExecSet(name){
+  document.getElementById('execInputRow').style.display='none';
+  document.getElementById('execDisplay').style.display='flex';
+  document.getElementById('execName').textContent=name;
+  document.getElementById('execAvatar').textContent=name.trim()[0].toUpperCase();
+  document.getElementById('execCard').classList.add('set');
+}
+function setExec(){
+  const n=document.getElementById('execInput').value.trim();
+  if(!n){showToast('Executive ka naam likhein',true);return;}
+  window._exec=n;
+  showExecSet(n);
+  try{const s=JSON.parse(sessionStorage.getItem('ak_cfg')||'{}');s.exec=n;sessionStorage.setItem('ak_cfg',JSON.stringify(s));}catch(e){}
+  showToast('Executive set: '+n);
+}
+function changeExec(){
+  document.getElementById('execInputRow').style.display='flex';
+  document.getElementById('execDisplay').style.display='none';
+  document.getElementById('execCard').classList.remove('set');
+  document.getElementById('execInput').value=window._exec||'';
+  window._exec='';
+}
+
+function getBusinessTypes(){
+  return ['b1','b2','b3','b4','b5','b6','b7'].filter(id=>document.getElementById(id).checked).map(id=>document.getElementById(id).value).join(', ');
+}
+
+async function submitEntry(){
+  const couponNo=document.getElementById('couponNo').value.trim();
+  const naam=document.getElementById('naam').value.trim();
+  if(!window._exec){showToast('Pehle executive naam set karein',true);return;}
+  if(!couponNo){showToast('Coupon number zaroori hai',true);return;}
+  if(!naam){showToast('Naam zaroori hai',true);return;}
+
+  const data={
+    executive:window._exec,
+    couponNo,
+    date:document.getElementById('entryDate').value,
+    naam,
+    pitaKaNaam:document.getElementById('pita').value.trim(),
+    sheher:document.getElementById('sheher').value.trim(),
+    mobile:document.getElementById('mobile').value.trim(),
+    businessType:getBusinessTypes(),
+    area:document.getElementById('area').value.trim(),
+    timestamp:new Date().toLocaleString('hi-IN')
+  };
+
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="ti ti-loader-2" aria-hidden="true"></i> Submit ho raha hai...';
+
+  try{
+    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  }catch(e){}
+
+  const c=document.getElementById('entryCount');
+  c.textContent=parseInt(c.textContent||0)+1;
+  ['couponNo','naam','pita','sheher','mobile','area'].forEach(id=>document.getElementById(id).value='');
+  ['b1','b2','b3','b4','b5','b6','b7'].forEach(id=>document.getElementById(id).checked=false);
+  document.getElementById('couponBadge').textContent='—';
+  btn.disabled=false;
+  btn.innerHTML='<i class="ti ti-send" aria-hidden="true"></i> Entry Darj Karein';
+  showToast('Coupon #'+couponNo+' save ho gayi ✓');
+  document.getElementById('couponNo').focus();
+}
+
+function showToast(msg,err){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show'+(err?' err':'');
+  setTimeout(()=>t.className='toast',2800);
+}
+</script>
