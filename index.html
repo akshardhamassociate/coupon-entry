@@ -345,6 +345,16 @@
       <label class="lbl">Contact Number *</label>
       <input type="tel" id="mobile" placeholder="10 digit mobile number..." maxlength="10"/>
     </div>
+    <div class="grid2">
+      <div class="fg">
+        <label class="lbl">Area / Mohalla *</label>
+        <input type="text" id="area" placeholder="jaise Talwandi..."/>
+      </div>
+      <div class="fg">
+        <label class="lbl">Sheher (City) *</label>
+        <input type="text" id="sheher" placeholder="jaise Kota..."/>
+      </div>
+    </div>
 
     <!-- Coupon Range -->
     <div class="section-label"><i class="ti ti-ticket"></i> Coupon Range</div>
@@ -487,6 +497,10 @@ async function submitEntry() {
   if (!retailerNaam) { showToast('Retailer ka naam zaroori hai', true); return; }
   if (!shopNaam) { showToast('Shop ka naam zaroori hai', true); return; }
   if (!mobile || mobile.length !== 10) { showToast('Sahi 10-digit mobile number likhein', true); return; }
+  const area = document.getElementById('area').value.trim();
+  const sheher = document.getElementById('sheher').value.trim();
+  if (!area) { showToast('Area / Mohalla zaroori hai', true); return; }
+  if (!sheher) { showToast('Sheher ka naam zaroori hai', true); return; }
   if (!couponFrom) { showToast('Coupon From number zaroori hai', true); return; }
   if (!couponTo) { showToast('Coupon To number zaroori hai', true); return; }
   if (parseInt(couponTo) < parseInt(couponFrom)) { showToast('"To" number "From" se bada hona chahiye', true); return; }
@@ -497,6 +511,8 @@ async function submitEntry() {
     retailerNaam,
     shopNaam,
     mobile,
+    area,
+    sheher,
     couponFrom,
     couponTo,
     businessType: getBusinessTypes(),
@@ -517,7 +533,7 @@ async function submitEntry() {
   c.textContent = parseInt(c.textContent || 0) + 1;
 
   // Reset fields
-  ['retailerNaam','shopNaam','mobile','couponFrom','couponTo','dailyChallenge','nextPlan'].forEach(id => document.getElementById(id).value = '');
+  ['retailerNaam','shopNaam','mobile','area','sheher','couponFrom','couponTo','dailyChallenge','nextPlan'].forEach(id => document.getElementById(id).value = '');
   ['b1','b2','b3','b4','b5','b6','b7','b8','b9'].forEach(id => document.getElementById(id).checked = false);
   document.getElementById('couponRangeBadge').textContent = '— to —';
   document.getElementById('couponPreview').innerHTML = '';
