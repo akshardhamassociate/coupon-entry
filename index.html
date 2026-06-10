@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<title>Akshardam Associates — Coupon Entry</title>
+<title>Akshardam Associates — Retailer Entry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
@@ -47,7 +47,6 @@
     min-height: 100vh;
   }
 
-  /* Full width on mobile, max-width on desktop */
   .page-wrap {
     width: 100%;
     max-width: 620px;
@@ -85,7 +84,7 @@
   .brand-sub { font-size: 9px; letter-spacing: 2.5px; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-top: 2px; }
   .hdr-right { text-align: right; }
   .coupon-label { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; }
-  .coupon-num { font-size: 20px; font-weight: 700; color: #FF8C00; line-height: 1.1; }
+  .coupon-range { font-size: 15px; font-weight: 700; color: #FF8C00; line-height: 1.2; }
 
   /* ---- BODY ---- */
   .body { padding: 20px; flex: 1; }
@@ -132,15 +131,24 @@
     letter-spacing: 0.4px; color: var(--text-muted);
     margin-bottom: 6px; text-transform: uppercase;
   }
-  input[type=text], input[type=tel], input[type=date] {
-    width: 100%; height: 44px; padding: 0 14px;
+  input[type=text], input[type=tel], input[type=date], input[type=number], textarea {
+    width: 100%; padding: 0 14px;
     font-size: 14px; font-family: 'Poppins', sans-serif;
     border: 1px solid var(--border); border-radius: var(--radius-sm);
     background: var(--surface2); color: var(--text);
     outline: none; transition: border-color 0.15s, box-shadow 0.15s;
     -webkit-appearance: none;
   }
-  input:focus { border-color: #FF8C00; box-shadow: 0 0 0 3px rgba(255,140,0,0.12); }
+  input[type=text], input[type=tel], input[type=date], input[type=number] {
+    height: 44px;
+  }
+  textarea {
+    padding: 12px 14px;
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.5;
+  }
+  input:focus, textarea:focus { border-color: #FF8C00; box-shadow: 0 0 0 3px rgba(255,140,0,0.12); }
 
   .set-btn {
     height: 44px; padding: 0 18px;
@@ -154,6 +162,28 @@
   .set-btn:hover { opacity: 0.9; }
 
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* Coupon range card */
+  .coupon-range-card {
+    background: linear-gradient(135deg, rgba(255,140,0,0.07), rgba(255,107,0,0.04));
+    border: 1px solid rgba(255,140,0,0.25);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 4px;
+  }
+  .coupon-range-card .grid2 { margin-bottom: 0; }
+  .range-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #FF8C00; padding-top: 26px;
+  }
+  .coupon-preview {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    min-height: 18px;
+  }
+  .coupon-preview strong { color: #FF6B00; font-weight: 600; }
 
   /* Business chips */
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -171,14 +201,31 @@
     border-color: #FF8C00; font-weight: 600;
   }
 
+  /* Notes / challenge boxes */
+  .notes-card {
+    background: #fdfaf5;
+    border: 1px solid rgba(255,140,0,0.15);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .notes-card .lbl { margin-bottom: 8px; }
+  .notes-card textarea { background: #fff; }
+  .notes-icon {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--text-muted);
+    margin-bottom: 8px; font-weight: 500;
+  }
+  .notes-icon i { color: #FF8C00; font-size: 14px; }
+
   /* Submit */
   .submit-btn {
-    width: 100%; height: 50px; border: none; border-radius: var(--radius);
+    width: 100%; height: 52px; border: none; border-radius: var(--radius);
     background: linear-gradient(135deg, #FF6B00, #FF8C00, #FFB347);
     color: #fff; font-size: 16px; font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-    letter-spacing: 0.3px; margin-top: 20px;
+    letter-spacing: 0.3px; margin-top: 24px;
     box-shadow: 0 4px 20px rgba(255,140,0,0.4);
     transition: opacity 0.15s, transform 0.1s;
   }
@@ -206,33 +253,14 @@
 
   /* Toast */
   .toast {
-    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-    background: #1a1a2e; color: #fff;
-    padding: 10px 22px; border-radius: 24px;
-    font-size: 13px; font-weight: 500;
-    border-left: 3px solid #FF8C00;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s; z-index: 9999;
-    white-space: nowrap; max-width: 90vw;
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #1a1a2e; color: #fff; padding: 10px 20px;
+    border-radius: 24px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.25s; z-index: 999; white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   }
-  .toast.show { opacity: 1; }
-  .toast.err { border-left-color: #e74c3c; }
-
-  /* Responsive */
-  @media (max-width: 480px) {
-    .body { padding: 16px; }
-    .grid2 { grid-template-columns: 1fr; gap: 0; }
-    .brand { font-size: 16px; }
-    .hdr-inner { padding: 12px 16px; }
-    .footer { padding: 12px 16px; }
-  }
-
-  @media (min-width: 621px) {
-    body { padding: 24px 16px; background: #e8e2d8; }
-    .page-wrap { border-radius: 20px; min-height: unset; }
-    .hdr { border-radius: 20px 20px 0 0; }
-    .footer { border-radius: 0 0 20px 20px; }
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.err { background: #c0392b; }
 </style>
 </head>
 <body>
@@ -242,21 +270,21 @@
   <div class="hdr">
     <div class="hdr-inner">
       <div class="logo-area">
-        <svg class="logo-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="50,8 15,38 85,38" fill="#FF8C00"/>
-          <polygon points="50,8 15,38 85,38" fill="url(#lg1)"/>
+        <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#FFB347"/>
-              <stop offset="100%" style="stop-color:#FF6B00"/>
+            <linearGradient id="lg1" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FF8C00"/>
+              <stop offset="100%" stop-color="#FF6B00"/>
             </linearGradient>
-            <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#FF8C00"/>
-              <stop offset="100%" style="stop-color:#FF6B00"/>
+            <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFD080"/>
+              <stop offset="100%" stop-color="#FF8C00"/>
             </linearGradient>
           </defs>
-          <rect x="22" y="38" width="14" height="28" rx="1" fill="url(#lg2)"/>
-          <rect x="43" y="30" width="14" height="36" rx="1" fill="#FFB347"/>
+          <circle cx="50" cy="50" r="48" fill="url(#lg1)" opacity="0.15"/>
+          <polygon points="50,12 88,38 88,62 50,88 12,62 12,38" fill="none" stroke="url(#lg1)" stroke-width="2.5"/>
+          <rect x="22" y="38" width="56" height="28" rx="3" fill="url(#lg1)" opacity="0.25"/>
+          <rect x="36" y="38" width="14" height="28" rx="1" fill="url(#lg2)"/>
           <rect x="64" y="38" width="14" height="28" rx="1" fill="url(#lg2)"/>
           <rect x="22" y="38" width="56" height="5" fill="#FF8C00" opacity="0.4"/>
           <rect x="46" y="52" width="8" height="8" rx="1" fill="rgba(255,255,255,0.7)"/>
@@ -268,8 +296,8 @@
         </div>
       </div>
       <div class="hdr-right">
-        <div class="coupon-label">Coupon No.</div>
-        <div class="coupon-num" id="couponBadge">—</div>
+        <div class="coupon-label">Coupon Range</div>
+        <div class="coupon-range" id="couponRangeBadge">— to —</div>
       </div>
     </div>
   </div>
@@ -278,7 +306,7 @@
   <div class="body">
 
     <!-- Executive -->
-    <div class="section-label">Executive</div>
+    <div class="section-label"><i class="ti ti-user-check"></i> Executive</div>
     <div class="exec-card" id="execCard">
       <div class="exec-row" id="execInputRow">
         <div class="fg" style="flex:1;margin:0">
@@ -291,69 +319,82 @@
         <div class="avatar" id="execAvatar">?</div>
         <div class="exec-info">
           <div class="ename" id="execName">—</div>
-          <div class="erole">Executive</div>
+          <div class="erole">Field Executive</div>
         </div>
         <span class="change-link" onclick="changeExec()">badlein</span>
       </div>
     </div>
 
-    <!-- Coupon -->
-    <div class="section-label">Coupon Details</div>
-    <div class="grid2">
-      <div class="fg">
-        <label class="lbl">Coupon Number *</label>
-        <input type="text" id="couponNo" placeholder="jaise 301..." oninput="document.getElementById('couponBadge').textContent=this.value||'—'"/>
-      </div>
-      <div class="fg">
-        <label class="lbl">Date</label>
-        <input type="date" id="entryDate"/>
-      </div>
+    <!-- Date -->
+    <div class="section-label"><i class="ti ti-calendar"></i> Date</div>
+    <div class="fg">
+      <input type="date" id="entryDate"/>
     </div>
 
-    <!-- Personal -->
-    <div class="section-label">Personal Information</div>
+    <!-- Retailer Info -->
+    <div class="section-label"><i class="ti ti-building-store"></i> Retailer Information</div>
     <div class="fg">
-      <label class="lbl">Naam (Name) *</label>
-      <input type="text" id="naam" placeholder="Poora naam..."/>
+      <label class="lbl">Retailer ka Naam *</label>
+      <input type="text" id="retailerNaam" placeholder="Dukandaar ka naam..."/>
     </div>
     <div class="fg">
-      <label class="lbl">Pita ka Naam (Father's Name)</label>
-      <input type="text" id="pita" placeholder="Pita ka naam..."/>
+      <label class="lbl">Shop / Business ka Naam *</label>
+      <input type="text" id="shopNaam" placeholder="Dukan ka naam..."/>
     </div>
-    <div class="grid2">
-      <div class="fg">
-        <label class="lbl">Sheher (City)</label>
-        <input type="text" id="sheher" placeholder="Sheher..."/>
-      </div>
-      <div class="fg">
-        <label class="lbl">Mobile Number</label>
-        <input type="tel" id="mobile" placeholder="10 digit..." maxlength="10"/>
-      </div>
+    <div class="fg">
+      <label class="lbl">Contact Number *</label>
+      <input type="tel" id="mobile" placeholder="10 digit mobile number..." maxlength="10"/>
     </div>
 
-    <!-- Business -->
-    <div class="section-label">Business Type / Vyavsay</div>
+    <!-- Coupon Range -->
+    <div class="section-label"><i class="ti ti-ticket"></i> Coupon Range</div>
+    <div class="coupon-range-card">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end;">
+        <div class="fg" style="margin:0">
+          <label class="lbl">Coupon From *</label>
+          <input type="number" id="couponFrom" placeholder="jaise 1..." min="1" oninput="updateCouponPreview()"/>
+        </div>
+        <div class="range-arrow"><i class="ti ti-arrow-right"></i></div>
+        <div class="fg" style="margin:0">
+          <label class="lbl">Coupon To *</label>
+          <input type="number" id="couponTo" placeholder="jaise 10..." min="1" oninput="updateCouponPreview()"/>
+        </div>
+      </div>
+      <div class="coupon-preview" id="couponPreview"></div>
+    </div>
+
+    <!-- Business Type -->
+    <div class="section-label"><i class="ti ti-briefcase"></i> Business Type / Vyavsay</div>
     <div class="fg">
       <div class="chips">
-        <div class="chip"><input type="checkbox" id="b1" value="Kirana"><label for="b1">Kirana</label></div>
-        <div class="chip"><input type="checkbox" id="b2" value="Kapda"><label for="b2">Kapda</label></div>
-        <div class="chip"><input type="checkbox" id="b3" value="Jewellery"><label for="b3">Jewellery</label></div>
-        <div class="chip"><input type="checkbox" id="b4" value="Hardware"><label for="b4">Hardware</label></div>
-        <div class="chip"><input type="checkbox" id="b5" value="Medical"><label for="b5">Medical</label></div>
-        <div class="chip"><input type="checkbox" id="b6" value="Electronics"><label for="b6">Electronics</label></div>
-        <div class="chip"><input type="checkbox" id="b7" value="Other"><label for="b7">Anya (Other)</label></div>
+        <div class="chip"><input type="checkbox" id="b1" value="Kirana"><label for="b1">🛒 Kirana</label></div>
+        <div class="chip"><input type="checkbox" id="b2" value="Kapda"><label for="b2">👗 Kapda</label></div>
+        <div class="chip"><input type="checkbox" id="b3" value="Jewellery"><label for="b3">💍 Jewellery</label></div>
+        <div class="chip"><input type="checkbox" id="b4" value="Hardware"><label for="b4">🔧 Hardware</label></div>
+        <div class="chip"><input type="checkbox" id="b5" value="Medical"><label for="b5">💊 Medical</label></div>
+        <div class="chip"><input type="checkbox" id="b6" value="Electronics"><label for="b6">📱 Electronics</label></div>
+        <div class="chip"><input type="checkbox" id="b7" value="Furniture"><label for="b7">🪑 Furniture</label></div>
+        <div class="chip"><input type="checkbox" id="b8" value="Restaurant"><label for="b8">🍽️ Restaurant</label></div>
+        <div class="chip"><input type="checkbox" id="b9" value="Other"><label for="b9">➕ Anya</label></div>
       </div>
     </div>
 
-    <!-- Area -->
-    <div class="section-label">Area / Referral</div>
-    <div class="fg">
-      <label class="lbl">Area / Parichay / Referral</label>
-      <input type="text" id="area" placeholder="Area ya referral ka naam..."/>
+    <!-- Daily Challenge -->
+    <div class="section-label"><i class="ti ti-alert-triangle"></i> Daily Challenge</div>
+    <div class="notes-card">
+      <div class="notes-icon"><i class="ti ti-messages"></i> Aaj coupon dete waqt kya dikkat aayi?</div>
+      <textarea id="dailyChallenge" placeholder="Koi problem, objection, ya mushkil jo aaj field mein aayi..."></textarea>
+    </div>
+
+    <!-- Next Plan -->
+    <div class="section-label"><i class="ti ti-map-pin"></i> Next Plan</div>
+    <div class="notes-card">
+      <div class="notes-icon"><i class="ti ti-route"></i> Agle baar kahan jaayenge?</div>
+      <textarea id="nextPlan" placeholder="Area, market, ya locality jahan aage visit karni hai..."></textarea>
     </div>
 
     <button class="submit-btn" id="submitBtn" onclick="submitEntry()">
-      <i class="ti ti-send"></i> Entry Darj Karein
+      <i class="ti ti-send"></i> Retailer Entry Save Karein
     </button>
 
   </div>
@@ -411,33 +452,62 @@ function changeExec() {
   try { const s = JSON.parse(localStorage.getItem('ak_cfg') || '{}'); delete s.exec; localStorage.setItem('ak_cfg', JSON.stringify(s)); } catch(e) {}
 }
 
+function updateCouponPreview() {
+  const from = parseInt(document.getElementById('couponFrom').value);
+  const to = parseInt(document.getElementById('couponTo').value);
+  const preview = document.getElementById('couponPreview');
+  const badge = document.getElementById('couponRangeBadge');
+  if (from && to && to >= from) {
+    const count = to - from + 1;
+    preview.innerHTML = '<strong>' + count + ' coupons</strong> diye jaayenge (' + from + ' se ' + to + ' tak)';
+    badge.textContent = from + ' — ' + to;
+  } else if (from && to && to < from) {
+    preview.innerHTML = '<span style="color:#c0392b">❌ "To" number "From" se bada hona chahiye</span>';
+    badge.textContent = '— to —';
+  } else {
+    preview.innerHTML = '';
+    badge.textContent = '— to —';
+  }
+}
+
 function getBusinessTypes() {
-  return ['b1','b2','b3','b4','b5','b6','b7']
+  return ['b1','b2','b3','b4','b5','b6','b7','b8','b9']
     .filter(id => document.getElementById(id).checked)
     .map(id => document.getElementById(id).value).join(', ');
 }
 
 async function submitEntry() {
-  const couponNo = document.getElementById('couponNo').value.trim();
-  const naam = document.getElementById('naam').value.trim();
+  const retailerNaam = document.getElementById('retailerNaam').value.trim();
+  const shopNaam = document.getElementById('shopNaam').value.trim();
+  const mobile = document.getElementById('mobile').value.trim();
+  const couponFrom = document.getElementById('couponFrom').value.trim();
+  const couponTo = document.getElementById('couponTo').value.trim();
+
   if (!window._exec) { showToast('Pehle executive naam set karein', true); return; }
-  if (!couponNo) { showToast('Coupon number zaroori hai', true); return; }
-  if (!naam) { showToast('Naam zaroori hai', true); return; }
+  if (!retailerNaam) { showToast('Retailer ka naam zaroori hai', true); return; }
+  if (!shopNaam) { showToast('Shop ka naam zaroori hai', true); return; }
+  if (!mobile || mobile.length !== 10) { showToast('Sahi 10-digit mobile number likhein', true); return; }
+  if (!couponFrom) { showToast('Coupon From number zaroori hai', true); return; }
+  if (!couponTo) { showToast('Coupon To number zaroori hai', true); return; }
+  if (parseInt(couponTo) < parseInt(couponFrom)) { showToast('"To" number "From" se bada hona chahiye', true); return; }
 
   const data = {
-    executive: window._exec, couponNo,
-    date: document.getElementById('entryDate').value, naam,
-    pitaKaNaam: document.getElementById('pita').value.trim(),
-    sheher: document.getElementById('sheher').value.trim(),
-    mobile: document.getElementById('mobile').value.trim(),
+    executive: window._exec,
+    date: document.getElementById('entryDate').value,
+    retailerNaam,
+    shopNaam,
+    mobile,
+    couponFrom,
+    couponTo,
     businessType: getBusinessTypes(),
-    area: document.getElementById('area').value.trim(),
+    dailyChallenge: document.getElementById('dailyChallenge').value.trim(),
+    nextPlan: document.getElementById('nextPlan').value.trim(),
     timestamp: new Date().toLocaleString('hi-IN')
   };
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader-2"></i> Submit ho raha hai...';
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> Save ho raha hai...';
 
   try {
     await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
@@ -445,14 +515,18 @@ async function submitEntry() {
 
   const c = document.getElementById('entryCount');
   c.textContent = parseInt(c.textContent || 0) + 1;
-  ['couponNo','naam','pita','sheher','mobile','area'].forEach(id => document.getElementById(id).value = '');
-  ['b1','b2','b3','b4','b5','b6','b7'].forEach(id => document.getElementById(id).checked = false);
-  document.getElementById('couponBadge').textContent = '—';
+
+  // Reset fields
+  ['retailerNaam','shopNaam','mobile','couponFrom','couponTo','dailyChallenge','nextPlan'].forEach(id => document.getElementById(id).value = '');
+  ['b1','b2','b3','b4','b5','b6','b7','b8','b9'].forEach(id => document.getElementById(id).checked = false);
+  document.getElementById('couponRangeBadge').textContent = '— to —';
+  document.getElementById('couponPreview').innerHTML = '';
   document.getElementById('entryDate').value = new Date().toISOString().split('T')[0];
+
   btn.disabled = false;
-  btn.innerHTML = '<i class="ti ti-send"></i> Entry Darj Karein';
-  showToast('Coupon #' + couponNo + ' save ho gayi ✓');
-  document.getElementById('couponNo').focus();
+  btn.innerHTML = '<i class="ti ti-send"></i> Retailer Entry Save Karein';
+  showToast('✓ ' + shopNaam + ' ki entry save ho gayi!');
+  document.getElementById('retailerNaam').focus();
 }
 
 function showToast(msg, err) {
