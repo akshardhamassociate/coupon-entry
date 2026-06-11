@@ -86,9 +86,41 @@
   .coupon-label { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; }
   .coupon-range { font-size: 15px; font-weight: 700; color: #FF8C00; line-height: 1.2; }
 
-  /* ---- BODY ---- */
-  .body { padding: 20px; flex: 1; }
+  /* ---- TAB BAR ---- */
+  .tab-bar {
+    display: flex;
+    background: #f8f5f0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .tab-btn {
+    flex: 1; padding: 12px 8px;
+    font-size: 12px; font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    border: none; background: none;
+    color: var(--text-muted); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .tab-btn.active {
+    color: #FF8C00;
+    border-bottom-color: #FF8C00;
+    background: rgba(255,140,0,0.04);
+  }
+  .tab-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #5cb85c;
+    position: absolute; top: 8px; right: 22px;
+    display: none;
+  }
+  .tab-dot.show { display: block; }
 
+  /* ---- PANELS ---- */
+  .panel { display: none; padding: 20px; flex: 1; }
+  .panel.active { display: block; }
+
+  /* ---- BODY COMMON ---- */
   .section-label {
     font-size: 10px; font-weight: 600; letter-spacing: 1.8px;
     text-transform: uppercase; color: #FF8C00;
@@ -171,7 +203,6 @@
     padding: 16px;
     margin-bottom: 4px;
   }
-  .coupon-range-card .grid2 { margin-bottom: 0; }
   .range-arrow {
     display: flex; align-items: center; justify-content: center;
     font-size: 18px; color: #FF8C00; padding-top: 26px;
@@ -201,7 +232,7 @@
     border-color: #FF8C00; font-weight: 600;
   }
 
-  /* Notes / challenge boxes */
+  /* Notes card */
   .notes-card {
     background: #fdfaf5;
     border: 1px solid rgba(255,140,0,0.15);
@@ -218,7 +249,7 @@
   }
   .notes-icon i { color: #FF8C00; font-size: 14px; }
 
-  /* Submit */
+  /* Submit buttons */
   .submit-btn {
     width: 100%; height: 52px; border: none; border-radius: var(--radius);
     background: linear-gradient(135deg, #FF6B00, #FF8C00, #FFB347);
@@ -232,6 +263,86 @@
   .submit-btn:hover { opacity: 0.93; }
   .submit-btn:active { transform: scale(0.99); }
   .submit-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
+
+  /* Day End Report panel styles */
+  .dayend-hero {
+    background: linear-gradient(135deg, #1a1a2e, #2d1b00);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+  }
+  .dayend-hero .dh-icon { font-size: 32px; margin-bottom: 8px; }
+  .dayend-hero .dh-title { font-size: 16px; font-weight: 700; color: #FF8C00; }
+  .dayend-hero .dh-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .dayend-hero .dh-entries {
+    display: inline-block;
+    background: rgba(255,140,0,0.2);
+    border: 1px solid rgba(255,140,0,0.4);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px; font-weight: 600; color: #FFB347;
+    margin-top: 10px;
+  }
+
+  /* Locked state for day-end fields */
+  .notes-card.locked {
+    background: #f0f7f0;
+    border-color: rgba(76,175,80,0.35);
+  }
+  .notes-card.locked textarea {
+    background: #f5faf5;
+    color: #2e7d32;
+    pointer-events: none;
+    border-color: rgba(76,175,80,0.3);
+    resize: none;
+  }
+  .locked-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .locked-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; font-weight: 600; color: #388e3c;
+    background: rgba(76,175,80,0.12); border: 1px solid rgba(76,175,80,0.3);
+    border-radius: 12px; padding: 3px 10px;
+  }
+  .edit-link {
+    font-size: 11px; color: #FF8C00; cursor: pointer;
+    text-decoration: underline; background: none; border: none;
+    font-family: 'Poppins', sans-serif; font-weight: 500;
+  }
+
+  .dayend-submit-btn {
+    width: 100%; height: 52px; border: none; border-radius: var(--radius);
+    background: linear-gradient(135deg, #1a6b2e, #2e9e4a);
+    color: #fff; font-size: 16px; font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+    letter-spacing: 0.3px; margin-top: 24px;
+    box-shadow: 0 4px 20px rgba(46,158,74,0.35);
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .dayend-submit-btn:hover { opacity: 0.93; }
+  .dayend-submit-btn:active { transform: scale(0.99); }
+  .dayend-submit-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
+
+  /* Submitted state */
+  .submitted-banner {
+    display: none;
+    background: linear-gradient(135deg, #f0f7f0, #e8f5e9);
+    border: 1px solid rgba(76,175,80,0.4);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .submitted-banner.show { display: block; }
+  .sb-icon { font-size: 36px; margin-bottom: 8px; }
+  .sb-title { font-size: 16px; font-weight: 700; color: #2e7d32; }
+  .sb-sub { font-size: 12px; color: #555; margin-top: 4px; }
+  .sb-edit { font-size: 11px; color: #FF8C00; cursor: pointer; text-decoration: underline; margin-top: 10px; display: inline-block; }
 
   /* Footer */
   .footer {
@@ -302,8 +413,19 @@
     </div>
   </div>
 
-  <!-- BODY -->
-  <div class="body">
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('entry')" id="tab-entry">
+      <i class="ti ti-building-store"></i> Retailer Entry
+    </button>
+    <button class="tab-btn" onclick="switchTab('dayend')" id="tab-dayend">
+      <i class="ti ti-clipboard-check"></i> Day End Report
+      <span class="tab-dot" id="dayendDot"></span>
+    </button>
+  </div>
+
+  <!-- ===== PANEL 1: RETAILER ENTRY ===== -->
+  <div class="panel active" id="panel-entry">
 
     <!-- Executive -->
     <div class="section-label"><i class="ti ti-user-check"></i> Executive</div>
@@ -389,23 +511,59 @@
       </div>
     </div>
 
+    <!-- Response -->
+    <div class="section-label"><i class="ti ti-message-circle"></i> Response / Pratikrya</div>
+    <div class="notes-card">
+      <div class="notes-icon"><i class="ti ti-mood-smile"></i> Is retailer ka kya response raha?</div>
+      <textarea id="response" placeholder="Retailer ne kya kaha — interested, not interested, baad mein aana, ya koi aur baat..."></textarea>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitEntry()">
+      <i class="ti ti-send"></i> Retailer Entry Save Karein
+    </button>
+
+  </div>
+
+  <!-- ===== PANEL 2: DAY END REPORT ===== -->
+  <div class="panel" id="panel-dayend">
+
+    <div class="dayend-hero">
+      <div class="dh-icon">🌙</div>
+      <div class="dh-title">Day End Report</div>
+      <div class="dh-sub">Din ki report — ek baar fill karein</div>
+      <div class="dh-entries"><i class="ti ti-building-store"></i> Aaj ki entries: <span id="heroEntryCount">0</span></div>
+    </div>
+
     <!-- Daily Challenge -->
     <div class="section-label"><i class="ti ti-alert-triangle"></i> Daily Challenge</div>
-    <div class="notes-card">
+    <div class="notes-card" id="challengeCard">
+      <div class="locked-header" id="challengeLockedHeader" style="display:none">
+        <span class="locked-badge"><i class="ti ti-lock"></i> Saved</span>
+        <button class="edit-link" onclick="unlockDayEnd()">Edit karein</button>
+      </div>
       <div class="notes-icon"><i class="ti ti-messages"></i> Aaj coupon dete waqt kya dikkat aayi?</div>
       <textarea id="dailyChallenge" placeholder="Koi problem, objection, ya mushkil jo aaj field mein aayi..."></textarea>
     </div>
 
     <!-- Next Plan -->
     <div class="section-label"><i class="ti ti-map-pin"></i> Next Plan</div>
-    <div class="notes-card">
+    <div class="notes-card" id="nextPlanCard">
       <div class="notes-icon"><i class="ti ti-route"></i> Agle baar kahan jaayenge?</div>
       <textarea id="nextPlan" placeholder="Area, market, ya locality jahan aage visit karni hai..."></textarea>
     </div>
 
-    <button class="submit-btn" id="submitBtn" onclick="submitEntry()">
-      <i class="ti ti-send"></i> Retailer Entry Save Karein
+    <!-- Submit Day End -->
+    <button class="dayend-submit-btn" id="dayendSubmitBtn" onclick="submitDayEnd()">
+      <i class="ti ti-clipboard-check"></i> Day End Report Submit Karein
     </button>
+
+    <!-- Submitted Banner -->
+    <div class="submitted-banner" id="submittedBanner">
+      <div class="sb-icon">✅</div>
+      <div class="sb-title">Day End Report Submit Ho Gayi!</div>
+      <div class="sb-sub" id="submittedTime"></div>
+      <span class="sb-edit" onclick="unlockDayEnd()">Kuch badalna hai? Edit karein</span>
+    </div>
 
   </div>
 
@@ -433,9 +591,39 @@ const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxwWgNNcIo4hdksciPDYA
   try {
     const s = JSON.parse(localStorage.getItem('ak_cfg') || '{}');
     if (s.exec) { window._exec = s.exec; showExecSet(s.exec); }
+    const cnt = s.count || 0;
+    document.getElementById('entryCount').textContent = cnt;
+    document.getElementById('heroEntryCount').textContent = cnt;
+  } catch(e) {}
+
+  // Restore day end report if saved today
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const dr = JSON.parse(localStorage.getItem('ak_dayend') || '{}');
+    if (dr.date === today) {
+      document.getElementById('dailyChallenge').value = dr.challenge || '';
+      document.getElementById('nextPlan').value = dr.nextPlan || '';
+      if (dr.submitted) {
+        showDayEndLocked(dr.time);
+        document.getElementById('dayendDot').classList.add('show');
+      }
+    }
   } catch(e) {}
 })();
 
+/* ---- TAB SWITCHING ---- */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  if (tab === 'dayend') {
+    const cnt = document.getElementById('entryCount').textContent;
+    document.getElementById('heroEntryCount').textContent = cnt;
+  }
+}
+
+/* ---- EXECUTIVE ---- */
 function showExecSet(name) {
   document.getElementById('execInputRow').style.display = 'none';
   document.getElementById('execDisplay').style.display = 'flex';
@@ -462,6 +650,7 @@ function changeExec() {
   try { const s = JSON.parse(localStorage.getItem('ak_cfg') || '{}'); delete s.exec; localStorage.setItem('ak_cfg', JSON.stringify(s)); } catch(e) {}
 }
 
+/* ---- COUPON PREVIEW ---- */
 function updateCouponPreview() {
   const from = parseInt(document.getElementById('couponFrom').value);
   const to = parseInt(document.getElementById('couponTo').value);
@@ -480,12 +669,14 @@ function updateCouponPreview() {
   }
 }
 
+/* ---- BUSINESS TYPES ---- */
 function getBusinessTypes() {
   return ['b1','b2','b3','b4','b5','b6','b7','b8','b9']
     .filter(id => document.getElementById(id).checked)
     .map(id => document.getElementById(id).value).join(', ');
 }
 
+/* ---- SUBMIT RETAILER ENTRY ---- */
 async function submitEntry() {
   const retailerNaam = document.getElementById('retailerNaam').value.trim();
   const shopNaam = document.getElementById('shopNaam').value.trim();
@@ -506,6 +697,7 @@ async function submitEntry() {
   if (parseInt(couponTo) < parseInt(couponFrom)) { showToast('"To" number "From" se bada hona chahiye', true); return; }
 
   const data = {
+    type: 'retailer',
     executive: window._exec,
     date: document.getElementById('entryDate').value,
     retailerNaam,
@@ -516,8 +708,7 @@ async function submitEntry() {
     couponFrom,
     couponTo,
     businessType: getBusinessTypes(),
-    dailyChallenge: document.getElementById('dailyChallenge').value.trim(),
-    nextPlan: document.getElementById('nextPlan').value.trim(),
+    response: document.getElementById('response').value.trim(),
     timestamp: new Date().toLocaleString('hi-IN')
   };
 
@@ -529,11 +720,15 @@ async function submitEntry() {
     await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   } catch(e) {}
 
+  // Update entry counter
   const c = document.getElementById('entryCount');
-  c.textContent = parseInt(c.textContent || 0) + 1;
+  const newCount = parseInt(c.textContent || 0) + 1;
+  c.textContent = newCount;
+  document.getElementById('heroEntryCount').textContent = newCount;
+  try { const s = JSON.parse(localStorage.getItem('ak_cfg') || '{}'); s.count = newCount; localStorage.setItem('ak_cfg', JSON.stringify(s)); } catch(e) {}
 
-  // Reset fields
-  ['retailerNaam','shopNaam','mobile','area','sheher','couponFrom','couponTo','dailyChallenge','nextPlan'].forEach(id => document.getElementById(id).value = '');
+  // Reset retailer fields
+  ['retailerNaam','shopNaam','mobile','area','sheher','couponFrom','couponTo','response'].forEach(id => document.getElementById(id).value = '');
   ['b1','b2','b3','b4','b5','b6','b7','b8','b9'].forEach(id => document.getElementById(id).checked = false);
   document.getElementById('couponRangeBadge').textContent = '— to —';
   document.getElementById('couponPreview').innerHTML = '';
@@ -545,6 +740,75 @@ async function submitEntry() {
   document.getElementById('retailerNaam').focus();
 }
 
+/* ---- DAY END REPORT ---- */
+async function submitDayEnd() {
+  if (!window._exec) { showToast('Pehle executive naam set karein', true); switchTab('entry'); return; }
+  const challenge = document.getElementById('dailyChallenge').value.trim();
+  const nextPlan = document.getElementById('nextPlan').value.trim();
+  if (!challenge) { showToast('Daily Challenge likhein', true); return; }
+  if (!nextPlan) { showToast('Next Plan likhein', true); return; }
+
+  const btn = document.getElementById('dayendSubmitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> Submit ho raha hai...';
+
+  const data = {
+    type: 'dayend',
+    executive: window._exec,
+    date: new Date().toISOString().split('T')[0],
+    totalEntries: document.getElementById('entryCount').textContent,
+    dailyChallenge: challenge,
+    nextPlan,
+    timestamp: new Date().toLocaleString('hi-IN')
+  };
+
+  try {
+    await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+  } catch(e) {}
+
+  const timeStr = new Date().toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit' });
+
+  // Save to localStorage
+  try {
+    localStorage.setItem('ak_dayend', JSON.stringify({
+      date: new Date().toISOString().split('T')[0],
+      challenge, nextPlan,
+      submitted: true, time: timeStr
+    }));
+  } catch(e) {}
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-clipboard-check"></i> Day End Report Submit Karein';
+  showDayEndLocked(timeStr);
+  document.getElementById('dayendDot').classList.add('show');
+  showToast('✓ Day End Report submit ho gayi!');
+}
+
+function showDayEndLocked(timeStr) {
+  ['challengeCard','nextPlanCard'].forEach(id => {
+    document.getElementById(id).classList.add('locked');
+    document.getElementById(id).querySelectorAll('textarea').forEach(t => t.style.pointerEvents = 'none');
+  });
+  document.getElementById('challengeLockedHeader').style.display = 'flex';
+  document.getElementById('dayendSubmitBtn').style.display = 'none';
+  const banner = document.getElementById('submittedBanner');
+  banner.classList.add('show');
+  document.getElementById('submittedTime').textContent = timeStr ? timeStr + ' baje submit ki gayi' : '';
+}
+
+function unlockDayEnd() {
+  ['challengeCard','nextPlanCard'].forEach(id => {
+    document.getElementById(id).classList.remove('locked');
+    document.getElementById(id).querySelectorAll('textarea').forEach(t => t.style.pointerEvents = '');
+  });
+  document.getElementById('challengeLockedHeader').style.display = 'none';
+  document.getElementById('dayendSubmitBtn').style.display = 'flex';
+  document.getElementById('submittedBanner').classList.remove('show');
+  document.getElementById('dayendDot').classList.remove('show');
+  showToast('Report edit kar sakte hain');
+}
+
+/* ---- TOAST ---- */
 function showToast(msg, err) {
   const t = document.getElementById('toast');
   t.textContent = msg;
